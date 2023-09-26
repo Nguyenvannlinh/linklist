@@ -463,9 +463,9 @@ namespace list
                     }
                 }
                 Console.WriteLine($"tổng diện tích {sum()}");
-                lnya.Maxarea();
-                lnya.maxperson();
-                lnya.Compareto();
+                Maxarea();
+                maxperson();
+                Compareto();
             }
         }
     }

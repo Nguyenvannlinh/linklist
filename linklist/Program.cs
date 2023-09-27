@@ -311,7 +311,7 @@ namespace list
                 Console.WriteLine("Xóa");
                 Console.Write("Tên tỉnh cần xóa : ");
                 string name = Console.ReadLine();
-                while (pHead != null)
+                while (tg != null)
                 {
                     Map info = tg.info;
                     if (name == info.Namemap)
@@ -346,7 +346,7 @@ namespace list
             {
                 Node tg = pHead;
                 int sum = 0;
-                while (pHead != null)
+                while (tg != null)
                 {
                     Map info = tg.info;
                     sum += info.area;
@@ -360,7 +360,7 @@ namespace list
                 Console.WriteLine("Tỉnh có diện tích lớn nhất");
                 int max = int.MinValue;
                 string maxName = "";
-                while (pHead != null)
+                while (tg != null)
                 {
                     Map info = tg.info;
                     if (info.area > max)
@@ -382,7 +382,7 @@ namespace list
                 Console.WriteLine("Tỉnh có dân số lớn nhất");
                 int max = int.MinValue;
                 string maxname = "";
-                while (pHead != null)
+                while (tg != null)
                 {
                     Map info = tg.info;
                     if (info.person > max)
@@ -403,7 +403,7 @@ namespace list
                 Node tg, last = null;
                 bool check;
                 Console.WriteLine("sắp xếp");
-                if (pHead == null)
+                if (tg == null)
                 {
                     Console.WriteLine("Danh sách rỗng.");
                     return;

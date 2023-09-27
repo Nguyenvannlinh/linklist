@@ -1,4 +1,5 @@
-﻿using System.Text;
+using System.Text;
+using System.Xml.Linq;
 
 namespace list
 {
@@ -127,20 +128,21 @@ namespace list
                     int n = node.info;
                     if (n == x)
                     {
-                        count++;
-                        node = node.pNext;
+                        count++; 
                     }
+                    node = node.pNext;
                 }
                 Console.WriteLine($"có {count} số trùng với {x}");
             }
             // tìm min
             static int Min_list(Node pHead)
             {
-
-                if (pHead != null)
+                if (pHead == null)
                 {
+                    Console.WriteLine("Danh sách rỗng."); 
                     return int.MinValue;
                 }
+
                 int min = pHead.info;
                 Node node = pHead;
                 while (node != null)
@@ -153,6 +155,20 @@ namespace list
                 }
                 return min;
             }
+            static void sont(Node node)
+            {
+                int x = 0;
+                while (node != null)
+                {
+                    int n = node.info;
+                    if (prime(n) == true)
+                    {
+                        x++;
+                    }
+                    node = node.pNext;
+                }
+                Console.WriteLine($"Có {x} số nguyên tố");
+            }
             public static void programpart1()
             {
                 int x = 0;
@@ -161,19 +177,11 @@ namespace list
                 Max_list(pHead);
                 Console.WriteLine(Sum(pHead));
                 Node node = new Node();
-                while (node != null)
-                {
-                    int n = node.info;
-                    if (prime(n) == true)
-                    {
-                        x++;
-                    }
-                }
-                Console.WriteLine($"Có {x} số nguyên tố");
+                sont(pHead);
                 number(pHead);
                 Console.Write("Số cần tìm :"); int y = int.Parse(Console.ReadLine());
                 Count(pHead, y);
-                Min_list(pHead);
+                Console.WriteLine($"số bé nhất { Min_list(pHead)}");
             }
             //bài 2
         }
@@ -311,7 +319,7 @@ namespace list
                 Console.WriteLine("Xóa");
                 Console.Write("Tên tỉnh cần xóa : ");
                 string name = Console.ReadLine();
-                while (tg != null)
+                while (pHead != null)
                 {
                     Map info = tg.info;
                     if (name == info.Namemap)
@@ -400,39 +408,48 @@ namespace list
             }
             static void Compareto()
             {
-                Node tg, last = null;
+                Node tg = pHead, last = null;
                 bool check;
-                Console.WriteLine("sắp xếp");
+                Console.WriteLine("Sắp xếp");
+
                 if (tg == null)
                 {
                     Console.WriteLine("Danh sách rỗng.");
                     return;
                 }
-                do
+
+                while (tg != null)
                 {
-                    tg = pHead;
                     check = false;
-                    while (tg.pNext != last)
+                    Node tg2 = pHead;
+                    while (tg2 != null && tg2.pNext != last)
                     {
-                        Map info = tg.info;
-                        Map nextinfo = tg.pNext.info;
-                        if (info.area > nextinfo.area)
+                        Map map = tg2.info;
+                        Map nextmap = tg2.pNext.info;
+                        if (map.area > nextmap.area)
                         {
-                            Map temp = info;
-                            tg.info = nextinfo;
-                            tg.pNext.info = temp;
+                            Map temp = map;
+                            tg2.info = nextmap;
+                            tg2.pNext.info = temp;
+                            check = true;
                         }
-                        tg = tg.pNext;
+                        tg2 = tg2.pNext;
                     }
-                    last = tg;
-                } while (check);
-                Console.WriteLine("Danh sách đã được sắp xếp tăng dần theo diện tích.");
-                while (pHead != null)
+                    if (!check)
+                        break;
+                    last = tg2;
+                    tg = pHead;
+                }
+
+                tg = pHead;
+                while (tg != null)
                 {
                     Map info = tg.info;
                     Console.WriteLine($"Tỉnh {info.Namemap} Diện tích {info.area} Dân số {info.person}\t");
                     tg = tg.pNext;
                 }
+
+                Console.WriteLine("Danh sách đã được sắp xếp tăng dần theo diện tích.");
             }
             public void programpar2()
             {
